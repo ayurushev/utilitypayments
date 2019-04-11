@@ -1,0 +1,23 @@
+{
+  "name": "utilitypayments",
+  "description": "",
+  "author": "Andrei Yurushev",
+  "version": "1.0.0",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ayurushev/utilitypayments.git"
+  },
+  "scripts": {
+    "server": "brunch watch --server",
+    "prod": "brunch build --production",
+    "prod_server": "brunch watch --production --server"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "angularjs-templates-brunch": "^1.0.0",
+    "clean-css-brunch": "^2.10.0",
+    "ng-annotate": "^1.2.2",
+    "uglify-es-brunch": "^1.0.5"
+  }
+}

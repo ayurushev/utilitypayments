@@ -1,0 +1,63 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&subset=cyrillic');
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+
+/*[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+  display: none !important;
+}*/
+
+md-list-item.selected {
+  background-color: #ddd;
+}
+
+md-input-container.no-errors-spacer .md-errors-spacer {
+  display: none;
+}
+
+.loading {
+  position: absolute;
+  top: 0;
+  z-index: 100;
+}
+
+md-input-container .readings {
+  position: absolute;
+  color: grey;
+  font-size: 14px;
+  left: 2px;
+  top: 36px;
+}
+
+/*[ui-view] {
+  will-change: opacity;
+}
+
+[ui-view].ng-enter {
+  transition: .5s;
+  -webkit-transition: .5s;
+  opacity: 0;
+}
+
+[ui-view].ng-enter-active {
+  opacity: 1;
+}
+
+.fade {
+  transition: all 200ms;
+  -webkit-transition: all 200ms;
+}
+
+.fade.ng-enter {
+  opacity: 0;
+}
+
+.fade.ng-enter.ng-enter-active {
+  opacity: 1;
+}
+
+.fade.ng-leave {
+  opacity: 1;
+}
+
+.fade.ng-leave.ng-leave-active {
+  opacity: 0;
+}*/

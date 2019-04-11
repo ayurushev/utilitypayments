@@ -1,0 +1,44 @@
+<md-content class="md-padding" md-theme="yellow-dark" layout>
+  <md-input-container class="no-errors-spacer">
+    <label>Дата</label>
+    <md-datepicker ng-model="payment.date" md-hide-icons="all" md-open-on-focus></md-datepicker>
+  </md-input-container>
+  <md-input-container class="no-errors-spacer" flex>
+    <label>Комментарий</label>
+    <input ng-model="payment.comment">
+  </md-input-container>
+</md-content>
+
+<md-content class="md-padding">
+  <div class="md-padding" ng-repeat="bill in payment.bills" layout layout-align="start center">
+    <h3 style="color: #999; margin: 0 16px" class="md-display-3" hide-sm hide-xs>{{ $index + 1 }}</h3>
+    <md-input-container style="font-weight: 500" flex>
+      <label>Коммунальная услуга</label>
+      <md-select ng-model="bill.utility" focus-on="Payment.newBillIndex === $index">
+        <md-option ng-repeat="u in UTILITIES" ng-value="$index">{{ u }}</md-option>
+      </md-select>
+    </md-input-container>
+    <md-input-container class="no-errors-spacer" flex>
+      <label>Показания</label>
+      <input type="number" ng-model="bill.readings" autocomplete="off" md-select-on-focus>
+      <div class="readings">
+        <span style="font-weight: 500" title="Последние показания">{{ Readings.data[bill.utility] || 0 }}, </span>
+        <span title="Последние - текущие">({{ Readings.data[bill.utility] || 0 }} - {{ bill.readings || 0 }} = {{ Readings.data[bill.utility] - bill.readings }})</span>
+      </div>
+    </md-input-container>
+    <md-input-container class="no-errors-spacer" flex>
+      <label>Сумма</label>
+      <input type="number" step="0.01" ng-model="bill.amount" autocomplete="off" md-select-on-focus>
+    </md-input-container>
+    <md-checkbox style="margin-bottom: 0" class="md-primary" ng-model="bill.commission" title="Комиссия" hide-xs>
+      <md-tooltip>Комиссия</md-tooltip>
+    </md-checkbox>
+    <md-input-container class="no-errors-spacer" flex hide-xs>
+      <label>Комментарий</label>
+      <input ng-model="bill.comment" autocomplete="off" md-select-on-focus>
+    </md-input-container>
+    <md-button class="md-icon-button" ng-click="Payment.removeBill($index)" aria-label="Удалить" hide-xs>
+      <md-icon>clear</md-icon>
+    </md-button>
+  </div>
+</md-content>

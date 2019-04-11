@@ -1,0 +1,21 @@
+<span md-truncate hide-xs>{{ Payment.summarize() }} RUB</span>
+<md-button class="md-icon-button" ng-click="Payment.addBill()">
+  <md-tooltip>Добавить счет</md-tooltip>
+  <md-icon>add</md-icon>
+</md-button>
+<md-button class="md-icon-button" ng-click="Payment.restore()" ng-disabled="Payment.isPristine()">
+  <md-tooltip>Отменить изменения</md-tooltip>
+  <md-icon>restore</md-icon>
+</md-button>
+<progress-button class="md-icon-button" on-click="Payment.save()" ng-disabled="Payment.isPristine()">
+  <md-tooltip>Сохранить</md-tooltip>
+  <md-icon>save_alt</md-icon>
+</progress-button>
+<progress-button class="md-icon-button md-warn" on-click="delete()">
+  <md-tooltip>Удалить платеж</md-tooltip>
+  <md-icon>delete_outline</md-icon>
+</progress-button>
+<!--<progress-button class="md-icon-button" on-click="newPayment()">
+  <md-tooltip>Новый платеж</md-tooltip>
+  <md-icon>add_circle_outline</md-icon>
+</progress-button>-->
