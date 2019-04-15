@@ -1,3 +1,13 @@
 # Utility Payments
 
-User -> Dates -> Utilities -> []
+Payments -> [{
+  Date,
+  Comment,
+  Bills -> [{
+    Utility,
+    Readings,
+    Amount,
+    Commission,
+    Comment
+  }]
+}
