@@ -1,10 +1,12 @@
 app.factory('Payments', ['$http', 'API_URL', function($http, API_URL) {
-  let list, api = `${ API_URL }/payments`;
+  let api = `${ API_URL }/payments`;
   return {
+    list: [],
     get: function(id) {
+      let list = this.list;
       return $http.get(api).then(function(response) {
         if (response.data.success === true) {
-          list = response.data.payments;
+          angular.extend(list, response.data.payments);
         }
         return response.data;
       }, function(error) {
@@ -12,6 +14,7 @@ app.factory('Payments', ['$http', 'API_URL', function($http, API_URL) {
       });
     },
     add: function(callback) {
+      let list = this.list;
       return $http.post(api).then(function(response) {
         if (response.data.success === true) {
           let model = response.data.payment;
@@ -26,16 +29,19 @@ app.factory('Payments', ['$http', 'API_URL', function($http, API_URL) {
       });
     },
     remove: function(id) {
-      let index = list.findIndex(x => x.id === id);
+      let index = this.list.findIndex(x => x.id === id);
       if (index > -1) {
-        list.splice(index, 1);
+        this.list.splice(index, 1);
       }
     },
     update: function(model) {
-      let index = list.findIndex(x => x.id === model.id);
+      let index = this.list.findIndex(x => x.id === model.id);
       if (index > -1) {
-        list[index] = model;
+        angular.extend(this.list[index], model);
       }
+    },
+    flush: function() {
+      this.list = [];
     }
   };
 }]);

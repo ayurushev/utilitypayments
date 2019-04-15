@@ -1,4 +1,4 @@
-app.factory('Auth', ['$http', '$mdToast', '$rootScope', 'Session', 'API_URL', function($http, $mdToast, $rootScope, Session, API_URL) {
+app.factory('Auth', ['$http', '$mdToast', '$rootScope', 'Payments', 'Payment', 'Session', 'API_URL', function($http, $mdToast, $rootScope, Payments, Payment, Session, API_URL) {
   return {
     login: function(username, password, callback) {
       $http.post(`${ API_URL }/authenticate`, { username: username, password: password }).then(function(response) {
@@ -19,6 +19,8 @@ app.factory('Auth', ['$http', '$mdToast', '$rootScope', 'Session', 'API_URL', fu
     },
     logout: function() {
       Session.flush();
+      Payments.flush();
+      Payment.flush();
       $rootScope.$broadcast('auth-logged-out');
       $mdToast.show($mdToast.simple({ textContent: 'Выполнен выход' }));
     }

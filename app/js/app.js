@@ -13,19 +13,16 @@ app.config(['$httpProvider', '$stateProvider', '$urlRouterProvider', '$mdDateLoc
       }
 		},
 		protected: true,
-		views: {
-			'toolbar': {
-				templateUrl: 'partials/payments.toolbar.html',
-				controller: 'PaymentsToolbarController'
-			},
-			'': {
-				templateUrl: 'partials/payments.html',
-				controller: 'PaymentsController'
-			}
-		},
+		templateUrl: 'partials/payments.html',
+		controller: 'PaymentsController',
 		resolve: {
-			data: ['Payments', function(Payments) {
-				return Payments.get();
+			'': ['$q', 'Payments', function($q, Payments) {
+				return $q.when(Payments.get(), function() {
+					return $q.promise;
+				}, function(error) {
+					console.error('Payments.resolve error', error);
+					return $q.reject(error);
+				});
 			}]
 		}
 	}).state('payments.detail', {
@@ -72,6 +69,8 @@ app.config(['$httpProvider', '$stateProvider', '$urlRouterProvider', '$mdDateLoc
 }]);
 
 app.run(['$rootScope', '$state', '$transitions', '$mdDialog', 'Session', function($rootScope, $state, $transitions, $mdDialog, Session) {
+	let loginShown = false;
+
 	$transitions.onBefore({}, function(transition) {
 		$rootScope.$state = $state;
 		$rootScope.$transition = {
@@ -81,17 +80,23 @@ app.run(['$rootScope', '$state', '$transitions', '$mdDialog', 'Session', functio
 			}
 		};
 
-		/*$state.defaultErrorHandler(function(error) {
-			console.log(error);
-			$state.go('payments');
-		});*/
-
 	  if (transition.to().protected) {
 			if (!Session.isAuthenticated()) {
+				if (loginShown) {
+					// don't reopen login dialog if it already showing in case of nested states
+					// (multiple api requests with 403 status)
+					return;
+				}
 				$mdDialog.show({
 	      	templateUrl: 'partials/login.html',
 					controller: 'LoginController',
-	      	targetEvent: event
+	      	targetEvent: event,
+					onShowing: function() {
+						loginShown = true;
+					},
+					onRemoving: function() {
+						loginShown = false;
+					}
 	    	}).then(function(result) {
 					if (result.loggedIn === true) {
 						// continue transition
@@ -104,9 +109,4 @@ app.run(['$rootScope', '$state', '$transitions', '$mdDialog', 'Session', functio
 			}
 	  }
   });
-
-	//$transitions.onSuccess({}, function(transition) {
-		// used in PaymentController delete function to select last payment
-		//$rootScope.$lastId = transition.params('from').id;
-	//});
 }]);

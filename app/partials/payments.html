@@ -5,13 +5,17 @@
         <label>Месяц</label>
         <md-icon>filter_list</md-icon>
         <md-select ng-model="selectedMonth">
-          <md-option style="font-weight: 500" ng-value="-1"></md-option>
+          <md-option style="font-weight: 500" ng-value="-1">Любой</md-option>
           <md-option ng-repeat="m in months" ng-value="$index">{{ m }}</md-option>
         </md-select>
       </md-input-container>
+      <progress-button class="md-fab md-mini md-primary" on-click="add()">
+        <md-tooltip>Новый платеж</md-tooltip>
+        <md-icon>add</md-icon>
+      </progress-button>
     </md-content>
     <md-list style="overflow-y: auto" flex>
-      <md-list-item class="md-3-line" ng-repeat="payment in payments | filter: monthFilter" ui-sref=".detail({ id: payment.id })" ui-sref-active="selected">
+      <md-list-item class="md-3-line" ng-repeat="payment in payments | filter: monthFilter | orderBy: 'date': true" ui-sref=".detail({ id: payment.id })" ui-sref-active="selected">
         <md-icon class="md-avatar-icon">payment</md-icon>
         <div class="md-list-item-text">
           <h3>{{ payment.date | mdate: 'L' }}</h3>
@@ -22,4 +26,8 @@
     </md-list>
   </md-content>
 </md-sidenav>
-<md-content ui-view flex></md-content>
+<md-content ui-view flex>
+  <div layout layout-align="center center" layout-fill>
+    <h3 style="color: #ccc" class="md-display-1">Выберите платеж</h3>
+  </div>
+</md-content>

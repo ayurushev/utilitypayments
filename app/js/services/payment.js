@@ -1,5 +1,5 @@
 app.factory('Payment', ['$http', '$q', 'Payments', 'Readings', 'API_URL', function($http, $q, Payments, Readings, API_URL) {
-  let originalModel, api = `${ API_URL }/payments`;
+  let originalModel = {}, api = `${ API_URL }/payments`;
   return {
     model: {},
     newBillIndex: -1,
@@ -9,10 +9,7 @@ app.factory('Payment', ['$http', '$q', 'Payments', 'Readings', 'API_URL', functi
         let data = response.data;
         if (data.success === true && data.payment) {
           angular.extend(model, data.payment);
-          originalModel = angular.copy(model);
-          // we don't need it here anymore
-          // watching model inside PaymentController
-          //return data;
+          angular.extend(originalModel, angular.copy(model));
         } else {
           return $q.reject('Платеж не найден.');
         }
@@ -21,11 +18,11 @@ app.factory('Payment', ['$http', '$q', 'Payments', 'Readings', 'API_URL', functi
       });
     },
     delete: function() {
-      let model = this.model;
-      return $http.delete(`${ api }/${ model.id }`).then(function(response) {
+      let self = this;
+      return $http.delete(`${ api }/${ self.model.id }`).then(function(response) {
         if (response.data.success === true) {
-          Payments.remove(model.id);
-          model = undefined;
+          Payments.remove(self.model.id);
+          self.flush();
         }
         return response.data;
       }, function(error) {
@@ -36,7 +33,7 @@ app.factory('Payment', ['$http', '$q', 'Payments', 'Readings', 'API_URL', functi
       let model = this.model;
       return $http.put(`${ api }/${ model.id }`, model).then(function(response) {
         if (response.data.success === true) {
-          originalModel = angular.copy(model);
+          angular.extend(originalModel, angular.copy(model));
           Payments.update(originalModel);
           Readings.save(model.bills);
         }
@@ -61,9 +58,14 @@ app.factory('Payment', ['$http', '$q', 'Payments', 'Readings', 'API_URL', functi
     isPristine: function() {
       return angular.equals(this.model, originalModel);
     },
-    restore: function() {
+    revertChanges: function() {
       angular.extend(this.model, originalModel);
-      originalModel = angular.copy(this.model);
+      angular.extend(originalModel, angular.copy(this.model));
+    },
+    flush: function() {
+      this.model = {};
+      this.newBillIndex = -1;
+      originalModel = {};
     }
   };
 }]);

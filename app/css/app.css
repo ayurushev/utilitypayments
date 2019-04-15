@@ -19,6 +19,21 @@ md-input-container.no-errors-spacer .md-errors-spacer {
   z-index: 100;
 }
 
+.toolbar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  min-height: 48px;
+  height: 48px;
+}
+
+.sidenav-toggle-button {
+  position: absolute;
+  bottom: 8px;
+  left: 8px;
+  z-index: 100;
+}
+
 md-input-container .readings {
   position: absolute;
   color: grey;
@@ -27,7 +42,7 @@ md-input-container .readings {
   top: 36px;
 }
 
-/*[ui-view] {
+[ui-view] {
   will-change: opacity;
 }
 
@@ -40,7 +55,7 @@ md-input-container .readings {
 [ui-view].ng-enter-active {
   opacity: 1;
 }
-
+/*
 .fade {
   transition: all 200ms;
   -webkit-transition: all 200ms;
