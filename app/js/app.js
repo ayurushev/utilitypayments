@@ -8,9 +8,9 @@ app.config(['$httpProvider', '$stateProvider', '$urlRouterProvider', '$mdDateLoc
 		params: {
 			// any month by default
 			month: {
-         value: -1,
-         dynamic: true
-      }
+				value: -1,
+				dynamic: true
+			}
 		},
 		protected: true,
 		templateUrl: 'partials/payments.html',
@@ -56,13 +56,14 @@ app.config(['$httpProvider', '$stateProvider', '$urlRouterProvider', '$mdDateLoc
 	$urlRouterProvider.otherwise('/');
 
 	$mdDateLocaleProvider.firstDayOfWeek = 1;
-  $mdDateLocaleProvider.formatDate = function(date) {
-    return moment(date).format('YYYY-MM-DD');
-  }
-  $mdDateLocaleProvider.parseDate = function(dateString) {
-    var m = moment(dateString, 'YYYY-MM-DD', true);
-    return m.isValid() ? m.toDate() : new Date(NaN);
-  }
+	$mdDateLocaleProvider.formatDate = function(date) {
+		return moment(date).format('YYYY-MM-DD');
+	}
+
+	$mdDateLocaleProvider.parseDate = function(dateString) {
+		var m = moment(dateString, 'YYYY-MM-DD', true);
+		return m.isValid() ? m.toDate() : new Date(NaN);
+	}
 
 	$mdThemingProvider.theme('default', 'default').primaryPalette('blue');
 	$mdThemingProvider.theme('yellow-dark', 'default').primaryPalette('yellow').dark();
@@ -88,16 +89,16 @@ app.run(['$rootScope', '$state', '$transitions', '$mdDialog', 'Session', functio
 					return;
 				}
 				$mdDialog.show({
-	      	templateUrl: 'partials/login.html',
+					templateUrl: 'partials/login.html',
 					controller: 'LoginController',
-	      	targetEvent: event,
+					targetEvent: event,
 					onShowing: function() {
 						loginShown = true;
 					},
 					onRemoving: function() {
 						loginShown = false;
 					}
-	    	}).then(function(result) {
+				}).then(function(result) {
 					if (result.loggedIn === true) {
 						// continue transition
 						transition.run();
