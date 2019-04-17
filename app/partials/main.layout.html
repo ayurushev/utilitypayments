@@ -1,7 +1,15 @@
 <md-toolbar>
   <md-progress-linear class="loading" md-mode="query" ng-if="$loading"></md-progress-linear>
   <div class="md-toolbar-tools">
-    <h2 md-truncate flex><a ui-sref="payments">Utility Payments</a></h2>
+    <md-button class="md-icon-button" ui-sref="payments" ui-sref-active="md-primary md-hue-1">
+      <md-tooltip>Платежи</md-tooltip>
+      <md-icon>payment</md-icon>
+    </md-button>
+    <md-button class="md-icon-button" ui-sref="charts" ui-sref-active="md-primary md-hue-1">
+      <md-tooltip>Графики</md-tooltip>
+      <md-icon>show_chart</md-icon>
+    </md-button>
+    <h2 md-truncate flex>Utility Payments</h2>
     <div class="toolbar" ui-view="toolbar" ng-if="Session.isAuthenticated()"></div>
     <md-menu>
       <md-button class="md-icon-button" ng-click="Session.isAuthenticated() ? $mdMenu.open() : $state.go($transition.to.state, $transition.to.params)" aria-label="Аутентификация">
@@ -24,6 +32,6 @@
   </div>
 </md-toolbar>
 <md-content ui-view layout flex></md-content>
-<md-button class="sidenav-toggle-button md-fab" ng-click="toggleSidenav()" aria-label="Платежи" hide-gt-sm>
+<md-button class="sidenav-toggle-button md-fab" ng-click="toggleSidenav()" aria-label="Платежи" hide-gt-sm ng-if="$state.is('payments')">
   <md-icon>menu</md-icon>
 </md-button>

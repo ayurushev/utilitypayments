@@ -1,4 +1,4 @@
-var app = angular.module('app', ['ui.router', 'ngMaterial', 'ngMessages', 'ngAnimate', 'templates']);
+var app = angular.module('app', ['ui.router', 'ngMaterial', 'ngMessages', 'ngAnimate', 'chart.js', 'templates']);
 
 app.config(['$httpProvider', '$stateProvider', '$urlRouterProvider', '$mdDateLocaleProvider', '$mdThemingProvider', function($httpProvider, $stateProvider, $urlRouterProvider, $mdDateLocaleProvider, $mdThemingProvider) {
 	$httpProvider.interceptors.push('HttpInterceptor');
@@ -52,6 +52,23 @@ app.config(['$httpProvider', '$stateProvider', '$urlRouterProvider', '$mdDateLoc
 				});
 			}]
 		}
+	}).state('charts', {
+		url: '/charts?{year:int}',
+		params: {
+			// default
+			year: moment().year()
+		},
+		protected: true,
+		views: {
+			'toolbar@': {
+				templateUrl: 'partials/charts.toolbar.html',
+				controller: 'ChartsToolbarController'
+			},
+			'': {
+				templateUrl: 'partials/charts.html',
+				controller: 'ChartsController'
+			}
+		}
 	});
 	$urlRouterProvider.otherwise('/');
 
@@ -70,6 +87,7 @@ app.config(['$httpProvider', '$stateProvider', '$urlRouterProvider', '$mdDateLoc
 }]);
 
 app.run(['$rootScope', '$state', '$transitions', '$mdDialog', 'Session', function($rootScope, $state, $transitions, $mdDialog, Session) {
+	Chart.defaults.global.defaultFontFamily = 'Roboto';
 	let loginShown = false;
 
 	$transitions.onBefore({}, function(transition) {

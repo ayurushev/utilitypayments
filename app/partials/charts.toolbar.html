@@ -1,0 +1,7 @@
+<md-select style="margin-bottom: 20px" class="md-no-underline" ng-model="selectedYear" aria-label="Год">
+  <md-option ng-repeat="y in [2018, 2019, 2020]" ng-value="y">{{ y }}</md-option>
+</md-select>
+<md-button class="md-icon-button" ng-click="currentYear()">
+  <md-tooltip>Текущий год</md-tooltip>
+  <md-icon>home</md-icon>
+</md-button>

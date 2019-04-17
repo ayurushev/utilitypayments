@@ -2,12 +2,20 @@ app.factory('Payments', ['$http', 'API_URL', function($http, API_URL) {
   let api = `${ API_URL }/payments`;
   return {
     list: [],
-    get: function(id) {
+    get: function() {
       let list = this.list;
       return $http.get(api).then(function(response) {
         if (response.data.success === true) {
           angular.extend(list, response.data.payments);
         }
+        return response.data; // ?
+      }, function(error) {
+        return error;
+      });
+    },
+    getSummary: function(year) {
+      year = year || moment().year();
+      return $http.get(`${ api }/summary/${ year }`).then(function(response) {
         return response.data;
       }, function(error) {
         return error;
