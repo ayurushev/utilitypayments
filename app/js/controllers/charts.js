@@ -4,6 +4,8 @@ app.controller('ChartsController', ['$scope', '$stateParams', 'Payments', functi
     labels: moment.months()
   };
 
+  $scope.year = $stateParams.year;
+
   Payments.getSummary($stateParams.year).then(function(data) {
     $scope.annualSummary = data.annual;
     angular.forEach(data.monthly, function(sum, month) {
