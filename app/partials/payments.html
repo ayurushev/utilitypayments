@@ -20,7 +20,7 @@
         <div class="md-list-item-text">
           <h3>{{ payment.date | mdate: 'L' }}</h3>
           <h4>{{ payment.comment }}</h4>
-          <p>{{ Payment.summarize(payment) }} RUB</p>
+          <p>{{ payment.summary }} RUB</p>
         </div>
       </md-list-item>
     </md-list>

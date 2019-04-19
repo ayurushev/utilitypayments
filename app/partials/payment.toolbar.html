@@ -3,11 +3,20 @@
   <md-tooltip>Добавить счет</md-tooltip>
   <md-icon>add</md-icon>
 </md-button>
+<md-button class="md-icon-button" ng-click="Payment.revertChanges()" ng-disabled="Payment.isPristine()">
+  <md-tooltip>Отменить изменения</md-tooltip>
+  <md-icon>restore</md-icon>
+</md-button>
 <progress-button class="md-icon-button" on-click="Payment.save()" ng-disabled="Payment.isPristine()">
   <md-tooltip>Сохранить</md-tooltip>
   <md-icon>save_alt</md-icon>
 </progress-button>
-<md-menu>
+<progress-button class="md-icon-button md-warn" on-click="delete()">
+  <md-tooltip>Удалить</md-tooltip>
+  <md-icon>delete_outline</md-icon>
+</progress-button>
+<!--
+<md-menu hide-gt-xs>
   <md-button class="md-icon-button" ng-click="$mdMenu.open()" aria-label="Действия">
     <md-icon>menu</md-icon>
   </md-button>
@@ -18,8 +27,8 @@
       </md-button>
     </md-menu-item>
     <md-menu-item>
-      <md-button ng-click="copyToClipboard($event)">
-        <md-icon>file_copy</md-icon> Копировать
+      <md-button ng-click="Payment.save()" ng-disabled="Payment.isPristine()">
+        <md-icon>save_alt</md-icon> Сохранить
       </md-button>
     </md-menu-item>
     <md-menu-divider></md-menu-divider>
@@ -30,3 +39,4 @@
     </md-menu-item>
   </md-menu-content>
 </md-menu>
+-->

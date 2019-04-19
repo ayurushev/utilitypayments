@@ -48,9 +48,9 @@ app.factory('Payment', ['$http', '$q', 'Payments', 'Readings', 'API_URL', functi
     removeBill: function(index) {
       this.model.bills.splice(index, 1);
     },
-    summarize: function(externalModel) {
+    summarize: function() {
       let i = 0;
-      angular.forEach(externalModel ? externalModel.bills : this.model.bills, function(bill) {
+      angular.forEach(this.model.bills, function(bill) {
         i += bill.amount || 0;
       });
       return i.toFixed(2);

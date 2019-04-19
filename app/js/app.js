@@ -68,6 +68,13 @@ app.config(['$httpProvider', '$stateProvider', '$urlRouterProvider', '$mdDateLoc
 				templateUrl: 'partials/charts.html',
 				controller: 'ChartsController'
 			}
+		},
+		resolve: {
+			data: ['$stateParams', 'Payments', function($stateParams, Payments) {
+				return Payments.getSummary($stateParams.year).then(function(data) {
+			    return data;
+				});
+			}]
 		}
 	});
 	$urlRouterProvider.otherwise('/');
