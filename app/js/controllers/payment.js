@@ -1,6 +1,7 @@
-app.controller('PaymentController', ['$scope', '$filter', '$window', '$mdDialog', 'Payment', 'Readings', 'UTILITIES', function($scope, $filter, $window, $mdDialog, Payment, Readings, UTILITIES) {
+app.controller('PaymentController', ['$scope', '$filter', '$window', '$mdDialog', 'Payment', 'Readings', 'Rates', 'UTILITIES', function($scope, $filter, $window, $mdDialog, Payment, Readings, Rates, UTILITIES) {
   $scope.Payment = Payment;
   $scope.Readings = Readings;
+  $scope.rates = Rates.get();
   $scope.UTILITIES = UTILITIES;
 
   $scope.export = function($event) {
@@ -23,6 +24,10 @@ app.controller('PaymentController', ['$scope', '$filter', '$window', '$mdDialog'
       }));
     }, function(error) {
     });
+  }
+
+  $scope.saveReadings = function() {
+    Readings.save(Payment.model.bills);
   }
 
   $scope.$watch('Payment.model', function(model) {

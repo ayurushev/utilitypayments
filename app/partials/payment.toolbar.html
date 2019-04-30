@@ -1,8 +1,4 @@
 <span style="padding: 0 20px" md-truncate hide-xs>{{ Payment.summarize() }} RUB</span>
-<md-button class="md-icon-button" ng-click="Payment.addBill()">
-  <md-tooltip>Добавить счет</md-tooltip>
-  <md-icon>add</md-icon>
-</md-button>
 <md-button class="md-icon-button" ng-click="Payment.revertChanges()" ng-disabled="Payment.isPristine()">
   <md-tooltip>Отменить изменения</md-tooltip>
   <md-icon>restore</md-icon>
@@ -15,28 +11,3 @@
   <md-tooltip>Удалить</md-tooltip>
   <md-icon>delete_outline</md-icon>
 </progress-button>
-<!--
-<md-menu hide-gt-xs>
-  <md-button class="md-icon-button" ng-click="$mdMenu.open()" aria-label="Действия">
-    <md-icon>menu</md-icon>
-  </md-button>
-  <md-menu-content>
-    <md-menu-item>
-      <md-button ng-click="Payment.revertChanges()" ng-disabled="Payment.isPristine()">
-        <md-icon>restore</md-icon> Отменить изменения
-      </md-button>
-    </md-menu-item>
-    <md-menu-item>
-      <md-button ng-click="Payment.save()" ng-disabled="Payment.isPristine()">
-        <md-icon>save_alt</md-icon> Сохранить
-      </md-button>
-    </md-menu-item>
-    <md-menu-divider></md-menu-divider>
-    <md-menu-item>
-      <md-button class="md-warn" ng-click="delete()">
-        <md-icon>delete_outline</md-icon> Удалить
-      </md-button>
-    </md-menu-item>
-  </md-menu-content>
-</md-menu>
--->

@@ -52,6 +52,24 @@ app.config(['$httpProvider', '$stateProvider', '$urlRouterProvider', '$mdDateLoc
 				});
 			}]
 		}
+	}).state('rates', {
+		url: '/rates',
+		protected: false, // TODO: save rates to back-end
+		views: {
+			'toolbar@': {
+				templateUrl: 'partials/rates.toolbar.html',
+				controller: 'RatesToolbarController'
+			},
+			'': {
+				templateUrl: 'partials/rates.html',
+				controller: 'RatesController'
+			}
+		},
+		resolve: {
+			data: ['Rates', function(Rates) {
+				return Rates.get();
+			}]
+		}
 	}).state('charts', {
 		url: '/charts?{year:int}',
 		params: {

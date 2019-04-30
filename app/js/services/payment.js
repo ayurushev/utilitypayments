@@ -1,4 +1,4 @@
-app.factory('Payment', ['$http', '$q', 'Payments', 'Readings', 'API_URL', function($http, $q, Payments, Readings, API_URL) {
+app.factory('Payment', ['$http', '$q', 'Payments', 'API_URL', function($http, $q, Payments, API_URL) {
   let originalModel = {}, api = `${ API_URL }/payments`;
   return {
     model: {},
@@ -35,7 +35,6 @@ app.factory('Payment', ['$http', '$q', 'Payments', 'Readings', 'API_URL', functi
         if (response.data.success === true) {
           angular.extend(originalModel, angular.copy(model));
           Payments.update(originalModel);
-          Readings.save(model.bills);
         }
         return response.data;
       }, function(error) {

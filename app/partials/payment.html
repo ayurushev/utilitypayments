@@ -7,9 +7,13 @@
     <label>Комментарий</label>
     <input ng-model="payment.comment">
   </md-input-container>
-  <md-button class="md-icon-button md-primary" ng-click="export($event)">
+  <md-button class="md-icon-button" ng-click="export($event)">
     <md-tooltip>Экспортировать</md-tooltip>
     <md-icon>file_copy</md-icon>
+  </md-button>
+  <md-button class="md-icon-button" ng-click="saveReadings()">
+    <md-tooltip>Сохранить показания как последние</md-tooltip>
+    <md-icon>timer</md-icon>
   </md-button>
 </md-content>
 
@@ -26,8 +30,9 @@
       <label>Показания</label>
       <input type="number" ng-model="bill.readings" autocomplete="off">
       <div class="readings">
-        <span style="font-weight: 500" title="Последние показания">{{ Readings.data[bill.utility] || 0 }}, </span>
-        <span title="Последние - текущие">({{ Readings.data[bill.utility] || 0 }} - {{ bill.readings || 0 }} = {{ Readings.data[bill.utility] - bill.readings }})</span>
+        <span style="font-weight: 500" title="Последние показания">{{ Readings.data[bill.utility] || 0 }}</span>
+        <span title="Текущие - последние">({{ bill.readings || 0 }} - {{ Readings.data[bill.utility] || 0 }} = {{ bill.readings - Readings.data[bill.utility] }})</span>
+        <span style="font-style: italic" title="Расчет">{{ bill.readings - Readings.data[bill.utility] }} * {{ rates[bill.utility] || 0 }} = {{ (bill.readings - Readings.data[bill.utility]) * (rates[bill.utility] || 0) }} RUB</span>
       </div>
     </md-input-container>
     <md-input-container class="no-errors-spacer" flex>
@@ -43,6 +48,12 @@
     </md-input-container>
     <md-button class="md-icon-button" ng-click="Payment.removeBill($index)" aria-label="Удалить" hide-xs>
       <md-icon>clear</md-icon>
+    </md-button>
+  </div>
+  <div class="md-padding" layout layout-align="end center">
+    <md-button class="md-icon-button md-primary" ng-click="Payment.addBill()">
+      <md-tooltip>Добавить счет</md-tooltip>
+      <md-icon>add_circle_outline</md-icon>
     </md-button>
   </div>
 </md-content>

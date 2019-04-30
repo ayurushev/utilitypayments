@@ -1,13 +1,9 @@
 <md-content class="md-padding" flex>
   <h3 class="md-headline">График платежей (расходов) за {{ year }} год</h3>
   <p class="md-body-2" ng-hide="annualSummary > 0">За выбранный год нет оплаченных счетов.</p>
-  <div layout="column" layout-gt-sm="row">
-    <div flex>
+  <div>
       <!--chart-dataset-override="{ 'backgroundColor': 'rgb(33, 150, 243)' }"-->
-      <canvas class="chart chart-bar" chart-data="chart.data" chart-labels="chart.labels"></canvas>
-    </div>
-    <div flex>
-    </div>
+    <canvas class="chart chart-bar" chart-data="chart.data" chart-labels="chart.labels"></canvas>
   </div>
   <h4 class="md-title">Итого: {{ annualSummary.toFixed(2) || 0 }} RUB</h4>
 </md-content>

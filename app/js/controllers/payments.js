@@ -16,6 +16,8 @@ app.controller('PaymentsController', ['$scope', '$state', '$stateParams', 'Payme
 
   $scope.$watch('Payments.list', function(list) {
     $scope.payments = list;
+    //console.log('Select first payment?');
+    //$state.go('.detail', { id: $scope.payments[0].id });
   });
 
   $scope.$watch('selectedMonth', function(newVal, oldVal) {
