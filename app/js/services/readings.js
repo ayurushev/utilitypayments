@@ -1,12 +1,25 @@
-app.factory('Readings', ['LocalSettings', function(LocalSettings) {
+app.factory('Readings', ['$http', 'API_URL', function($http, API_URL) {
+  let api = `${ API_URL }/readings`;
   return {
-    data: LocalSettings.get('readings'),
-    save: function(bills) {
+    data: {},
+    get: function() {
       let data = this.data;
-      angular.forEach(bills, function(bill) {
-        data[bill.utility] = bill.readings;
+      $http.get(api).then(function(response) {
+        if (response.data.success === true) {
+          angular.extend(data, response.data.readings);
+        }
+      }, function(error) {
+        console.error(error);
       });
-      LocalSettings.save('readings', data);
+    },
+    save: function(id) {
+      let self = this;
+      $http.post(api, { paymentId: id }).then(function(response) {
+        if (response.data.success === true) {
+          // refetch data
+          self.load();
+        }
+      });
     }
   }
 }]);

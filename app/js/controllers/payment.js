@@ -27,10 +27,12 @@ app.controller('PaymentController', ['$scope', '$filter', '$window', '$mdDialog'
   }
 
   $scope.saveReadings = function() {
-    Readings.save(Payment.model.bills);
+    Readings.save(Payment.model.id);
   }
 
   $scope.$watch('Payment.model', function(model) {
     $scope.payment = model;
   });
+
+  Readings.get();
 }]);
