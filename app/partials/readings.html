@@ -1,0 +1,14 @@
+<div>
+  <div layout>
+    <span flex="40">Последние:</span>
+    <span flex>{{ Readings.data[bill.utility] || 0 }}</span>
+  </div>
+  <div layout>
+    <span flex="40">Расход:</span>
+    <span flex>{{ bill.readings - Readings.data[bill.utility] }} ({{ bill.readings || 0 }} - {{ Readings.data[bill.utility] || 0 }})</span>
+  </div>
+  <div layout>
+    <span flex="40">Оплата:</span>
+    <span flex>{{ (bill.readings - Readings.data[bill.utility]) * (Rates.data[bill.utility] || 0) }} RUB ({{ bill.readings - Readings.data[bill.utility] }} * {{ Rates.data[bill.utility] || 0 }})</span>
+  </div>
+</div>

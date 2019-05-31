@@ -1,15 +1,29 @@
-app.factory('Rates', ['LocalSettings', function(LocalSettings) {
+app.factory('Rates', ['$http', 'API_URL', 'LocalSettings', function($http, API_URL, LocalSettings) {
+  let api = `${ API_URL }/rates`;
   let originalData = {};
   return {
     data: {},
     get: function() {
-      angular.extend(this.data, LocalSettings.get('rates'));
-      angular.extend(originalData, angular.copy(this.data));
-      return this.data;
+      let data = this.data;
+      return $http.get(api).then(function(response) {
+        if (response.data.success === true) {
+          angular.extend(data, response.data.rates);
+          angular.extend(originalData, angular.copy(data));
+          return data;
+        }
+      }, function(error) {
+        return error;
+      });
     },
     save: function() {
-      LocalSettings.save('rates', this.data);
-      angular.extend(originalData, this.data);
+      let data = this.data;
+      return $http.post(api, data).then(function(response) {
+        if (response.data.success === true) {
+          angular.extend(originalData, data);
+        }
+      }, function(error) {
+        return error;
+      });
     },
     isPristine: function() {
       return angular.equals(this.data, originalData);

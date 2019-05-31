@@ -54,7 +54,7 @@ app.config(['$httpProvider', '$stateProvider', '$urlRouterProvider', '$mdDateLoc
 		}
 	}).state('rates', {
 		url: '/rates',
-		protected: false, // TODO: save rates to back-end
+		protected: true,
 		views: {
 			'toolbar@': {
 				templateUrl: 'partials/rates.toolbar.html',

@@ -1,7 +1,7 @@
 app.controller('PaymentController', ['$scope', '$filter', '$window', '$mdDialog', 'Payment', 'Readings', 'Rates', 'UTILITIES', function($scope, $filter, $window, $mdDialog, Payment, Readings, Rates, UTILITIES) {
   $scope.Payment = Payment;
   $scope.Readings = Readings;
-  $scope.rates = Rates.get();
+  $scope.Rates = Rates;
   $scope.UTILITIES = UTILITIES;
 
   $scope.export = function($event) {
@@ -35,4 +35,5 @@ app.controller('PaymentController', ['$scope', '$filter', '$window', '$mdDialog'
   });
 
   Readings.get();
+  Rates.get();
 }]);

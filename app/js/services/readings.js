@@ -1,20 +1,25 @@
 app.factory('Readings', ['$http', 'API_URL', function($http, API_URL) {
   let api = `${ API_URL }/readings`;
   return {
+    paymentId: undefined,
     data: {},
     get: function() {
-      let data = this.data;
-      $http.get(api).then(function(response) {
+      let self = this;
+      return $http.get(api).then(function(response) {
         if (response.data.success === true) {
-          angular.extend(data, response.data.readings);
+          // paymentId is used to track if currently selected payment
+          // is the one with "last readings"
+          self.paymentId = response.data.paymentId;
+          angular.extend(self.data, response.data.readings);
+          return self.data;
         }
       }, function(error) {
-        console.error(error);
+        return error;
       });
     },
     save: function(id) {
       let self = this;
-      $http.post(api, { paymentId: id }).then(function(response) {
+      return $http.post(api, { paymentId: id }).then(function(response) {
         if (response.data.success === true) {
           // refetch data
           self.load();

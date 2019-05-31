@@ -37,9 +37,20 @@ md-input-container.no-errors-spacer .md-errors-spacer {
 md-input-container .readings {
   position: absolute;
   color: grey;
-  font-size: 14px;
+  font-size: calc(8px + 0.25vw);
   left: 2px;
   top: 36px;
+  width: 100%;
+}
+
+[readings] > div > div > span:first-child {
+  font-weight: 500;
+}
+
+[readings] > div > div > span {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 [ui-view] {
